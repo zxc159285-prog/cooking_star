@@ -2,12 +2,32 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-  
-  <mapper namespace="com.cooking.star.myrecipe.MyRecipeMapper">
-  
-  <insert id="create" parameterType="MyRecipeDTO">
-  INSERT INTO "COOK_MYRECIPE"
-  VALUES (DEFAULT,#{username},#{recipeTitle},#{recipeContents},#{recipeGood},#{recipeHit},now())
-  </insert>
-  
-  </mapper>
+
+<mapper namespace="com.cooking.star.myrecipe.MyRecipeMapper">
+	<sql id="search_sql">
+		WHERE
+		<choose>
+			<when test="kind=='v2'">"RECIPE_NUM"</when>
+			<when test="kind=='v2'">"USERNAME"</when>
+			<otherwise>"RECIPE_TITLE"</otherwise>
+		</choose>
+		LIKE CONCAT('%',#{search},'%')
+	</sql>
+
+	<select id="getCount" parameterType="Pager" resultType="Long">
+		SELECT COUNT("RECIPE_NUM") FROM "COOK_MYRECIPE"
+		<include refid="search_sql"></include>
+	</select>
+
+	<insert id="create" parameterType="MyRecipeDTO">
+		INSERT INTO "COOK_MYRECIPE"
+		VALUES
+		(DEFAULT,#{username},#{recipeTitle},#{recipeContents},#{recipeGood},#{recipeHit},now())
+	</insert>
+
+	<select id="list" parameterType="Pager" resultType="MyRecipeDTO">
+		SELECT * FROM "COOK_MYRECIPE"
+		<include refid="search_sql"></include>
+		LIMIT #{perPage} OFFSET #{startNum}
+	</select>
+</mapper>
