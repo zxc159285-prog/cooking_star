@@ -11,6 +11,6 @@ public class SearchDTO {
 
 	private Long searachNum;
 	private String searchTitle;
-	private String searchContents;
+	private String link;
 	private String username;
 }
