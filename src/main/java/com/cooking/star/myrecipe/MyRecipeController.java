@@ -1,9 +1,11 @@
 package com.cooking.star.myrecipe;
 
+import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,10 +15,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.cooking.star.member.MemberDTO;
 import com.cooking.star.pager.Pager;
 
 @Controller
 @RequestMapping("/myrecipe/*")
+
 public class MyRecipeController {
 
 	@Autowired
@@ -34,8 +38,10 @@ public class MyRecipeController {
 	}
 	
 	@PostMapping("create")
-	public String create(MyRecipeDTO myRecipeDTO,@RequestParam(name =  "attach", required = false) MultipartFile attach)throws Exception{
-		
+	public String create(@AuthenticationPrincipal MemberDTO memberDTO,MyRecipeDTO myRecipeDTO,Principal principal,@RequestParam(name =  "attach", required = false) MultipartFile attach)throws Exception{
+//		MemberDTO memberDTO= new MemberDTO();
+//		memberDTO.setUsername(principal.getName());
+		myRecipeDTO.setUsername(memberDTO.getUsername());
 		int result=myRecipeService.create(myRecipeDTO,attach);
 		
 		return "redirect:/myrecipe/list";
@@ -53,6 +59,8 @@ public class MyRecipeController {
 		model.addAttribute("dto", ar);
 		
 	}
+	@GetMapping("update")
+	public void update()throws Exception{}
 	
 	
 }
