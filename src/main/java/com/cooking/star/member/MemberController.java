@@ -1,7 +1,10 @@
 package com.cooking.star.member;
 
+import java.security.Principal;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -47,6 +50,20 @@ public class MemberController {
 //		
 //		return "redirect:/";
 //	}
+	@GetMapping("mypage")
+	public void mypage(Principal principal,Model model)throws Exception {
+		
+		MemberDTO memberDTO = new MemberDTO();
+			memberDTO.setUsername(principal.getName());
+		MemberDTO m=memberService.myProfile(memberDTO);
+		
+		model.addAttribute("myProfile",m);
+		
+		
+		
+	}
+	
+	
 	
 	
 	

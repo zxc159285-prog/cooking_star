@@ -28,6 +28,16 @@ public class MemberService implements UserDetailsService{
 	private String name;
 	
 	
+	public MemberDTO myProfile(MemberDTO memberDTO)throws Exception {
+		
+		MemberDTO m=memberMapper.myProfile(memberDTO);
+		
+		return m;
+	}
+	
+	
+	
+	
 	public int join(MemberDTO memberDTO,MultipartFile attach)throws Exception{
 		
 		memberDTO.setPassword(passwordEncoder.encode(memberDTO.getPassword()));

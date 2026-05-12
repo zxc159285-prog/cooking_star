@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="sec"  uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -77,16 +78,29 @@
                             </div>
                             <a href="/myrecipe/list" class="nav-item nav-link">My 레시피</a>
                         </div>
+                        <sec:authorize access="isAuthenticated()">
+                        
                         <div class="d-flex m-3 me-0">
                             <button class="btn-search btn border border-secondary btn-md-square rounded-circle bg-white me-4" data-bs-toggle="modal" data-bs-target="#searchModal"><i class="fas fa-search text-primary"></i></button>
                             <a href="#" class="position-relative me-4 my-auto">
                                 <i class="fa fa-shopping-bag fa-2x"></i>
                                 <span class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1" style="top: -5px; left: 15px; height: 20px; min-width: 20px;">3</span>
                             </a>
-                            <a href="#" class="my-auto">
+                            <a href="/member/mypage" class="my-auto">
                                 <i class="fas fa-user fa-2x"></i>
                             </a>
+                            <a href="/member/logout">로그아웃</a>
                         </div>
+                        
+                        </sec:authorize>
+                        
+                        <sec:authorize access="!isAuthenticated()">
+                        <a href="/member/join">회원가입</a>
+                        <a href="/member/login">로그인</a>
+                        </sec:authorize>
+                        
+                        
+                        
                     </div>
                 </nav>
             </div>

@@ -13,7 +13,7 @@
 			
 				<div>
 					<label>아이디</label>
-					<input type="text" name="username" id="username"  />
+					<input type="text" name="username" id="username" value="${cookie.rememberId.value}" />
 					
 				</div>
 				<div>

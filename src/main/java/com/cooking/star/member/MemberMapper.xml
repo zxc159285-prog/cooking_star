@@ -63,6 +63,13 @@ WHERE "USERNAME"=#{username}
  </insert>
  
  
+ <select id="myProfile" parameterType="MemberDTO" resultMap="loginResult">
+ 
+ SELECT * FROM "COOK_MEMBER" m
+ LEFT JOIN "COOK_PROFILE" p 
+ USING ("USERNAME")
+ WHERE "USERNAME"=#{username}
+ </select>
  
  
  
