@@ -17,5 +17,6 @@ public class MyRecipeDTO {
 	private Long recipeGood;
 	private Long recipeHit;
 	private LocalDate recipeDate;
+	private RecipeFileDTO recipeFileDTO;
 	
 }

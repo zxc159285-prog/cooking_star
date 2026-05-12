@@ -25,9 +25,33 @@
 		(DEFAULT,#{username},#{recipeTitle},#{recipeContents},#{recipeGood},#{recipeHit},now())
 	</insert>
 
+	<insert id="addRecipeimg" parameterType="RecipeFileDTO">
+	INSERT INTO "RECIPE_FILE"
+	VALUES (DEFAULT,#{recipeNum},#{fileName},#{oriName})
+	</insert>
+	
 	<select id="list" parameterType="Pager" resultType="MyRecipeDTO">
 		SELECT * FROM "COOK_MYRECIPE"
 		<include refid="search_sql"></include>
 		LIMIT #{perPage} OFFSET #{startNum}
 	</select>
+	
+	<resultMap type="MyRecipeDTO" id="recipeResult">
+	<id column="RECIPE_NUM" property="recipeNum"/>
+	<result column="USERNAME" property="username"/>
+	<result column="RECIPE_TITLE" property="recipeTitle"/>
+	<result column="RECIPE_CONTENTS" property="recipeContents"/>
+	<result column="RECIPE_GOOD" property="recipeGood"/>
+	<result column="RECIPE_HIT" property="recipeHit"/>
+	<result column="RECIPE_DATE" property="recipeDate"/>
+	
+	<association property="recipeFileDTO" javaType="RecipeFileDTO">
+	<id column="FILE_NUM" property="fileNum"/>
+	<result column="RECIPE_NUM" property="recipeNum"/>
+	 <result column="FILE_NAME" property="fileName"/>
+	 <result column="ORI_NAME" property="oriName"/>
+	 
+	</association>
+	</resultMap>
+	
 </mapper>
