@@ -1,7 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-<%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,14 +7,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>Recipe 작성</h1>
-	
-	
-	
-	<form action="/myrecipe/create" method="post" enctype="MyRecipeDTO">
-		<div>
-			아이디<input type="text" readonly value="<sec:authentication property='principal.username'/>" name="username">
-		</div>
+	<h1>Recipe 수정</h1>
+	<form action="/myrecipe/create" method="post" enctype="multipart/form-data">
 		<div>
 			제목<input type="text" name="recipeTitle">
 		</div>

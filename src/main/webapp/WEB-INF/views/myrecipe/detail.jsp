@@ -37,12 +37,12 @@
 					<td>${d.recipeHit}</td>
 					<td>${d.recipeDate}</td>
 				</tr>
-			<img src="/files/${name}/${d.recipeFileDTO.fileName}">
+			<div><img src="/files/${name}/${d.recipeFileDTO.fileName}"></div>
 
 			</c:forEach>
-
+				
 		</tbody>
 	</table>
-
+		<a href="/myrecipe/update"><button>수정</button></a>
 </body>
 </html>
