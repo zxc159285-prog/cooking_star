@@ -5,7 +5,7 @@
 
 <mapper namespace="com.cooking.star.gemini.GeminiMapper">
 	<select id="getMenu" resultType="string">
-	SELECT "GEMINI_CONTENTS" FROM "GEMENI"
+	SELECT "GEMINI_CONTENTS" FROM "GEMINI"
 	WHERE "GEMINI_NUM"=1
 	</select>
 	
