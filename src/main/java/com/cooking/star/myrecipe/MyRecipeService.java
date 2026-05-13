@@ -1,5 +1,6 @@
 package com.cooking.star.myrecipe;
 
+import java.io.File;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.cooking.star.file.FileDTO;
 import com.cooking.star.file.FileManager;
 import com.cooking.star.pager.Pager;
 
@@ -56,6 +58,29 @@ public class MyRecipeService {
 	}
 	
 	public int update(MyRecipeDTO myRecipeDTO,MultipartFile attach)throws Exception{
-		return myRecipeMapper.update(myRecipeDTO,attach);
+				int result= myRecipeMapper.update(myRecipeDTO);
+
+		if(attach != null && !attach.isEmpty()) {
+			RecipeFileDTO oldFile= myRecipeMapper.getFileDetail(myRecipeDTO);
+					
+			
+			if(oldFile!=null) {
+				fileManager.fileDelete(name, oldFile);
+				
+				myRecipeMapper.fileDelete(oldFile);
+			}
+			String fileName=fileManager.fileSave(name, attach);
+			RecipeFileDTO recipeFileDTO=new RecipeFileDTO();
+			
+			recipeFileDTO.setFileName(fileName);
+			recipeFileDTO.setRecipeNum(myRecipeDTO.getRecipeNum());
+			recipeFileDTO.setOriName(attach.getOriginalFilename());
+			
+			return myRecipeMapper.addRecipeimg(recipeFileDTO);
+		}
+		
+		return result;
 	}
+	
+//	public int delete(MyRecipeDTO myRecipeDTO) {}
 }

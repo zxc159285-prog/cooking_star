@@ -59,7 +59,7 @@
 	LEFT JOIN
 	"RECIPE_FILE"f
 	USING("RECIPE_NUM")
-	WHERE "USERNAME"=#S{username}
+	WHERE "USERNAME"=#{username}
 	LIMIT #{perPage} OFFSET #{startNum}
 	</select>
 	<select id="detail" parameterType="MyRecipeDTO" resultMap="recipeResult">
@@ -78,4 +78,15 @@
 	</set>
 	WHERE "RECIPE_NUM"=#{recipeNum}
 	</update>
+	
+	<!-- 파일정보 가져오기 -->
+	<select id="getFileDetail" parameterType="MyRecipeDTO" resultType="RecipeFileDTO">
+	SELECT * FROM "RECIPE_FILE"
+	WHERE "RECIPE_NUM" = #{recipeNum}
+	</select>
+	<!-- 파일삭제 -->
+	<delete id="fileDelete" parameterType="RecipeFileDTO">
+	DELETE FROM "RECIPE_FILE"
+	WHERE "FILE_NUM" = #{fileNum}
+	</delete>
 </mapper>

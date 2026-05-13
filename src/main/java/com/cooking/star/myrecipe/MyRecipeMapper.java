@@ -14,6 +14,8 @@ public interface MyRecipeMapper {
 	public List<MyRecipeDTO> allList(Pager pager);
 	public MyRecipeDTO detail(MyRecipeDTO myRecipeDTO);
 	public int addRecipeimg(RecipeFileDTO recipeFileDTO);
-	public int update(MyRecipeDTO myRecipeDTO,MultipartFile attach);
-
+	public int update(MyRecipeDTO myRecipeDTO);
+	public int delete(MyRecipeDTO myRecipeDTO);
+	public RecipeFileDTO getFileDetail(MyRecipeDTO myRecipeDTO);
+	public int fileDelete(RecipeFileDTO recipeFileDTO);
 }
