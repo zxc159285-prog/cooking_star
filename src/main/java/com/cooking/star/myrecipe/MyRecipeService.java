@@ -43,15 +43,19 @@ public class MyRecipeService {
 		return result;
 	}
 
-	public List<MyRecipeDTO> list(Pager pager) throws Exception {
+	public List<MyRecipeDTO> allList(Pager pager) throws Exception {
 
 		pager.makeStartNum();
 
 		pager.makeBlock(myRecipeMapper.getCount(pager));
-		return myRecipeMapper.list(pager);
+		return myRecipeMapper.allList(pager);
 	}
 
-	public List<MyRecipeDTO> detail(MyRecipeDTO myRecipeDTO)throws Exception{
+	public MyRecipeDTO detail(MyRecipeDTO myRecipeDTO)throws Exception{
 		return myRecipeMapper.detail(myRecipeDTO);
+	}
+	
+	public int update(MyRecipeDTO myRecipeDTO,MultipartFile attach)throws Exception{
+		return myRecipeMapper.update(myRecipeDTO,attach);
 	}
 }
