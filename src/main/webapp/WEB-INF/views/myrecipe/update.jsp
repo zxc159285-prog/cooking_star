@@ -8,19 +8,17 @@
 </head>
 <body>
 	<h1>Recipe 수정</h1>
-	<form action="/myrecipe/create" method="post" enctype="multipart/form-data">
+	<form action="/myrecipe/update" method="post" enctype="multipart/form-data">
 		<div>
-			제목<input type="text" name="recipeTitle">
+		<input type="hidden" name="recipeNum" value="${dto.recipeNum}">
 		</div>
 		<div>
-			내용<input type="text" name="recipeContents">
+			제목<input type="text" value="${dto.recipeTitle}" name="recipeTitle">
 		</div>
 		<div>
-			좋아요<input type="text" name="recipeGood">
+			내용<input type="text" value="${dto.recipeContents}"  name="recipeContents">
 		</div>
-		<div>
-			조회수<input type="text" name="recipeHit">
-		</div>
+
 		<div class="form-group">
 			<label>요리 사진</label> <input type="file" name="attach"
 				class="form-control" id="attach">

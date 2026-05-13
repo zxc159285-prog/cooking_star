@@ -2,6 +2,8 @@ package com.cooking.star.myrecipe;
 
 import java.time.LocalDate;
 
+import com.cooking.star.pager.Pager;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -18,5 +20,5 @@ public class MyRecipeDTO {
 	private Long recipeHit;
 	private LocalDate recipeDate;
 	private RecipeFileDTO recipeFileDTO;
-	
+	private Pager pager;
 }

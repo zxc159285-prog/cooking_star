@@ -11,7 +11,7 @@
 	<h1>list Page</h1>
 
 	<div>
-		<form action="./list" method="get">
+		<form action="./allList" method="get">
 			<div class="input-group mb-3">
 				<div>
 					<select name="kind" class="custom-select">
@@ -57,15 +57,15 @@
 				
 				  <ul class="pagination">
     <li class="page-item ${pager.pre?'':'disabled'}">
-      <a class="page-link" href="./list?page=${pager.pre?pager.start-1:pager.start}&search=${pager.search}" aria-label="Previous">
+      <a class="page-link" href="./allList?page=${pager.pre?pager.start-1:pager.start}&search=${pager.search}" aria-label="Previous">
         <span aria-hidden="true">&laquo;</span>
       </a>
     </li>
     <c:forEach begin="${pager.start}" end="${pager.end}" var="i">
-								<li class="page-item"><a class="page-link" href="./list?page=${i}&search=${pager.search}">${i}</a></li>
+								<li class="page-item"><a class="page-link" href="./allList?page=${i}&search=${pager.search}">${i}</a></li>
 							</c:forEach>
     <li class="page-item  ${pager.next?'':'disabled'}">
-      <a class="page-link" href="./list?page=${pager.next?pager.end+1:pager.end}&search=${pager.search}" aria-label="Next">
+      <a class="page-link" href="./allList?page=${pager.next?pager.end+1:pager.end}&search=${pager.search}" aria-label="Next">
         <span aria-hidden="true">&raquo;</span>
       </a>
     </li>

@@ -25,24 +25,24 @@
 		</thead>
 
 		<tbody>
-			<c:forEach items="${dto}" var="d">
+			
 				<!-- 포이치 반복문 돌리는것 리스트에서꺼낸걸 d라는변수에 담자-->
 
 				<tr>
-					<td>${d.recipeNum}</td>
-					<td>${d.recipeTitle}</td>
-					<td>${d.recipeContents}</td>
-					<td>${d.username}</td>
-					<td>${d.recipeGood}</td>
-					<td>${d.recipeHit}</td>
-					<td>${d.recipeDate}</td>
+					<td>${dto.recipeNum}</td>
+					<td>${dto.recipeTitle}</td>
+					<td>${dto.recipeContents}</td>
+					<td>${dto.username}</td>
+					<td>${dto.recipeGood}</td>
+					<td>${dto.recipeHit}</td>
+					<td>${dto.recipeDate}</td>
 				</tr>
-			<div><img src="/files/${name}/${d.recipeFileDTO.fileName}"></div>
+			<div><img src="/files/${name}/${dto.recipeFileDTO.fileName}"></div>
 
-			</c:forEach>
+			
 				
 		</tbody>
 	</table>
-		<a href="/myrecipe/update"><button>수정</button></a>
+		<a href="/myrecipe/update?recipeNum=${dto.recipeNum}"><button>수정</button></a>
 </body>
 </html>

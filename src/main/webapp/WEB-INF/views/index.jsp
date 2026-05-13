@@ -76,7 +76,7 @@
                                     <a href="/404" class="dropdown-item">404 Page</a>
                                 </div>
                             </div>
-                            <a href="/myrecipe/list" class="nav-item nav-link">My 레시피</a>
+                            <a href="/myrecipe/allList" class="nav-item nav-link">레시피 모음</a>
                         </div>
                         <sec:authorize access="isAuthenticated()">
                         

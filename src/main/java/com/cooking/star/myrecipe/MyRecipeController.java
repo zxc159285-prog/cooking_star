@@ -46,21 +46,31 @@ public class MyRecipeController {
 		
 		return "redirect:/myrecipe/list";
 	}
-	@GetMapping("list")
-	public void list(Pager pager,Model model)throws Exception{
-		List<MyRecipeDTO> ar = myRecipeService.list(pager);
+	@GetMapping("allList")
+	public void allList(Pager pager,Model model)throws Exception{
+		List<MyRecipeDTO> ar = myRecipeService.allList(pager);
 		model.addAttribute("dto", ar);
-		return;
+		
 	}
 	
 	@GetMapping("detail")
 	public void detail(MyRecipeDTO myRecipeDTO,Model model)throws Exception{
-		List<MyRecipeDTO>ar=myRecipeService.detail(myRecipeDTO);
-		model.addAttribute("dto", ar);
+		myRecipeDTO=myRecipeService.detail(myRecipeDTO);
+		model.addAttribute("dto",myRecipeDTO);
 		
 	}
 	@GetMapping("update")
-	public void update()throws Exception{}
+	public void update(MyRecipeDTO myRecipeDTO,Model model)throws Exception{
+		myRecipeDTO=myRecipeService.detail(myRecipeDTO);
+		model.addAttribute("dto",myRecipeDTO);
+		
+		
+	}
 	
+	@PostMapping("update")
+	public String update(@RequestParam(name = "attach", required = false) MultipartFile attach,MyRecipeDTO myRecipeDTO)throws Exception{
+		int result=myRecipeService.update(myRecipeDTO,attach);
+		return "redirect:/myrecipe/detail?recipeNum="+myRecipeDTO.getRecipeNum();
+	}
 	
 }
