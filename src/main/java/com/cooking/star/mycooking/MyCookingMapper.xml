@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cooking.star.mycooking.MyCookingMapper">
+
+<insert id="create" parameterType="MyCookingDTO" useGeneratedKeys="true" keyProperty="cookingNum">
+INSERT INTO "MY_COOKING" ("USERNAME","COOKING_TITLE","COOKING_RECIPE","COOKING_CONTENTS","COOKING_DATE")
+VALUES (#{username},#{cookingTitle},#{cookingRecipe},#{cookingContents},now() AT TIME ZONE 'Asia/Seoul')
+</insert>
+
+<insert id="addFile" parameterType="MyCookingFileDTO">
+INSERT INTO "COOKING_FILE"
+VALUES (default,#{cookingNum},#{fileName},#{oriName})
+</insert>
+
+<select id="list"  resultMap="cookingResult">
+SELECT *
+FROM "MY_COOKING" m
+LEFT JOIN (
+    SELECT DISTINCT ON ("COOKING_NUM")
+        "COOKING_NUM",
+        "FILE_NAME"
+    FROM "COOKING_FILE"
+    ORDER BY "COOKING_NUM", "FILE_NUM" ASC
+) f
+USING ("COOKING_NUM")
+WHERE m."COOKING_DATE" >= (now() AT TIME ZONE 'Asia/Seoul')::date
+  AND m."COOKING_DATE" &lt; ((now() AT TIME ZONE 'Asia/Seoul')::date + INTERVAL '1 day')
+ORDER BY m."COOKING_NUM" DESC
+LIMIT 4
+
+<!-- &lt;는 등호 > 를 의미 한다 -->
+
+</select>
+<resultMap type="MyCookingDTO" id="cookingResult">
+	
+	<id column="COOKING_NUM" property="cookingNum"/>
+	<result column="USERNAME" property="username"/>
+	<result column="COOKING_TITLE" property="cookingTitle"/>
+	<result column="COOKING_RECIPE" property="cookingRecipe"/>
+	<result column="COOKING_CONTENTS" property="cookingContents"/>
+	<result column="COOKING_DATE" property="cookingDate"/>
+	
+	<collection property="list" javaType="java.util.List" ofType="MyCookingFileDTO">
+	
+	<id column="FILE_NUM" property="fileNum"/>
+	<result column="COOKING_NUM" property="cookingNum"/>
+	<result column="FILE_NAME" property="fileName"/>
+	<result column="ORI_NAME" property="oriName"/>
+	
+	</collection>
+</resultMap>
+
+
+</mapper>

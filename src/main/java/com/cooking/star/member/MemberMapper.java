@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import com.cooking.star.follow.FollowDTO;
 import com.cooking.star.myrecipe.MyRecipeDTO;
 
+
 @Mapper
 public interface MemberMapper {
 

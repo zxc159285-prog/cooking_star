@@ -1,6 +1,7 @@
 package com.cooking.star.mycooking;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -17,6 +18,8 @@ public class MyCookingDTO {
 	private String cookingRecipe;
 	private String cookingContents;
 	private LocalDate cookingDate;
+	
+	private List<MyCookingFIleDTO>list;
 	
 	
 }

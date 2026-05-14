@@ -9,7 +9,7 @@ import lombok.ToString;
 @Setter
 @Getter
 @ToString
-public class CookingFIleDTO extends FileDTO{
+public class MyCookingFIleDTO extends FileDTO{
 
 	private Long cookingNum;
 }
