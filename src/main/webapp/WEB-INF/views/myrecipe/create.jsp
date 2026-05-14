@@ -24,7 +24,7 @@
 			내용<input type="text" name="recipeContents">
 		</div>
 		<div>
-			좋아요<input type="text" name="recipeGood">
+			좋아요<input type="text" name="recipeGoodCount">
 		</div>
 		<div>
 			조회수<input type="text" name="recipeHit">

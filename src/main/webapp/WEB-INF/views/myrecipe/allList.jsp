@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
@@ -18,8 +19,6 @@
 						<option ${pager.kind eq 'v1'?'selected':''} value="v1"
 							class="dropdown-item">Title</option>
 						<option ${pager.kind eq 'v2'?'selected':''} value="v2"
-							class="dropdown-item">NUM</option>
-						<option ${pager.kind eq 'v3'?'selected':''} value="v3"
 							class="dropdown-item">Writer</option>
 					</select> <input type="text" value="${pager.search}" name="search">
 					<button type="submit" id="">검색</button>
@@ -45,7 +44,7 @@
 								<td>${d.recipeNum}</td>
 								<td><a href="/myrecipe/detail?recipeNum=${d.recipeNum}">${d.recipeTitle}</a></td>
 								<td>${d.username}</td>
-								<td>${d.recipeGood}</td>
+								<td>${d.recipeGoodCount}</td>
 								<td>${d.recipeHit}</td>
 								<td>${d.recipeDate}</td>
 								</tr>
@@ -54,21 +53,24 @@
 
 					</tbody>
 				</table>
-				
-				  <ul class="pagination">
-    <li class="page-item ${pager.pre?'':'disabled'}">
-      <a class="page-link" href="./allList?page=${pager.pre?pager.start-1:pager.start}&search=${pager.search}" aria-label="Previous">
-        <span aria-hidden="true">&laquo;</span>
-      </a>
-    </li>
-    <c:forEach begin="${pager.start}" end="${pager.end}" var="i">
-								<li class="page-item"><a class="page-link" href="./allList?page=${i}&search=${pager.search}">${i}</a></li>
-							</c:forEach>
-    <li class="page-item  ${pager.next?'':'disabled'}">
-      <a class="page-link" href="./allList?page=${pager.next?pager.end+1:pager.end}&search=${pager.search}" aria-label="Next">
-        <span aria-hidden="true">&raquo;</span>
-      </a>
-    </li>
-  </ul>
-</body>
+				<a href="/myrecipe/create">
+				<button type="button">레시피 작성</button>
+				</a>
+
+				<ul class="pagination">
+					<li class="page-item ${pager.pre?'':'disabled'}"><a
+						class="page-link"
+						href="./allList?page=${pager.pre?pager.start-1:pager.start}&search=${pager.search}&kind=${pager.kind}"
+						aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
+					</a></li>
+					<c:forEach begin="${pager.start}" end="${pager.end}" var="i">
+						<li class="page-item"><a class="page-link"
+							href="./allList?page=${i}&search=${pager.search}&kind=${pager.kind}">${i}</a></li>
+					</c:forEach>
+					<li class="page-item  ${pager.next?'':'disabled'}"><a
+						class="page-link"
+						href="./allList?page=${pager.next?pager.end+1:pager.end}&kind=${pager.kind}&search=${pager.search}"
+						aria-label="Next"> <span aria-hidden="true">&raquo;</span>
+					</a></li>
+				</ul></body>
 </html>

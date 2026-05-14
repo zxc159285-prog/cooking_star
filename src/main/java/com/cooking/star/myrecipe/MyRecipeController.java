@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.cooking.star.good.GoodDTO;
+import com.cooking.star.good.GoodService;
 import com.cooking.star.member.MemberDTO;
 import com.cooking.star.pager.Pager;
 
@@ -23,6 +25,9 @@ import com.cooking.star.pager.Pager;
 
 public class MyRecipeController {
 
+	@Autowired
+	private GoodService goodService;
+	
 	@Autowired
 	private MyRecipeService myRecipeService;
 	
@@ -54,10 +59,23 @@ public class MyRecipeController {
 	}
 	
 	@GetMapping("detail")
-	public void detail(MyRecipeDTO myRecipeDTO,Model model)throws Exception{
+	public void detail(MyRecipeDTO myRecipeDTO,Model model,Principal principal)throws Exception{
 		myRecipeService.updateHit(myRecipeDTO);
 		myRecipeDTO=myRecipeService.detail(myRecipeDTO);
 		model.addAttribute("dto",myRecipeDTO);
+		
+		boolean isGood=false;
+		
+		if(principal != null) {
+			GoodDTO goodDTO = new GoodDTO();
+			goodDTO.setRecipeNum(myRecipeDTO.getRecipeNum());
+			goodDTO.setUsername(principal.getName());
+			
+			isGood=goodService.isGood(goodDTO);
+			
+		}
+		
+		model.addAttribute("isGood", isGood);
 		
 	}
 	@GetMapping("update")

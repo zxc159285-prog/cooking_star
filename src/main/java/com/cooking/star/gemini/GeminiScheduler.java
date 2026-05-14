@@ -17,7 +17,7 @@ public class GeminiScheduler {
 	@Autowired
 	private GeminiMapper geminiMapper;
 	
-	@PostConstruct
+	//@PostConstruct
 	public void init() throws Exception {
         updateGemini();
     }

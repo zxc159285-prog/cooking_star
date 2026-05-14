@@ -33,7 +33,7 @@
 					<td>${dto.recipeTitle}</td>
 					<td>${dto.recipeContents}</td>
 					<td><a href="/member/user?username=${dto.username}">${dto.username}</a></td>
-					<td>${dto.recipeGood}</td>
+					<td id="goodCount">${dto.recipeGoodCount}</td>
 					<td>${dto.recipeHit}</td>
 					<td>${dto.recipeDate}</td>
 				</tr>
@@ -45,7 +45,21 @@
 	</table>
 		<a href="/myrecipe/update?recipeNum=${dto.recipeNum}"><button>수정</button></a>
 		<a href="/myrecipe/allList"><button>리스트로 돌아가기</button></a>
-		<button type="button" id="likeBtn">좋아요</button>
+		<button type="button" id="goodBtn" data-recipe-num="${dto.recipeNum}" >
+		
+		<c:choose>
+			<c:when test="${isGood}">
+				종아요 취소
+			</c:when>
+			
+			<c:otherwise>
+				좋아요
+			</c:otherwise>
+		
+		</c:choose>
+		
+		</button>
+		
 		<script src="/js/myRecipe/good.js"></script>
 </body>
 </html>

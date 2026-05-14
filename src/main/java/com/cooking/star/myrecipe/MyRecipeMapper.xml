@@ -7,7 +7,6 @@
 	<sql id="search_sql">
 		WHERE
 		<choose>
-			<when test="kind=='v2'">"RECIPE_NUM"</when>
 			<when test="kind=='v2'">"USERNAME"</when>
 			<otherwise>"RECIPE_TITLE"</otherwise>
 		</choose>
@@ -22,7 +21,7 @@
 	<insert id="create" parameterType="MyRecipeDTO" keyProperty="recipeNum" useGeneratedKeys="true">
 		INSERT INTO "COOK_MYRECIPE"
 		VALUES
-		(DEFAULT,#{username},#{recipeTitle},#{recipeContents},#{recipeGood},#{recipeHit},now())
+		(DEFAULT,#{username},#{recipeTitle},#{recipeContents},#{recipeGoodCount},#{recipeHit},now())
 	</insert>
 
 	<insert id="addRecipeimg" parameterType="RecipeFileDTO">
@@ -42,7 +41,7 @@
 	<result column="USERNAME" property="username"/>
 	<result column="RECIPE_TITLE" property="recipeTitle"/>
 	<result column="RECIPE_CONTENTS" property="recipeContents"/>
-	<result column="RECIPE_GOOD" property="recipeGood"/>
+	<result column="RECIPE_GOOD_COUNT" property="recipeGoodCount"/>
 	<result column="RECIPE_HIT" property="recipeHit"/>
 	<result column="RECIPE_DATE" property="recipeDate"/>
 	
