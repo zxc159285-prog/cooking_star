@@ -22,7 +22,7 @@ public class GeminiService {
 	    private String geminiKey;
 	    
 	    // 1. 주소는 가장 표준적인 1.5-flash로 설정 (latest를 빼보세요)
-	    private final String API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent";
+	    private final String API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-lite:generateContent";
 	    
 	    public String menu(String mealTime) {
 	        RestTemplate restTemplate = new RestTemplate();

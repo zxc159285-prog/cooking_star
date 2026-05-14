@@ -7,7 +7,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cooking.star.gemini.GeminiService; // GeminiService 경로
+import com.cooking.star.log.LogService;
+
 import java.time.LocalTime;
+import java.util.List;
+import java.util.Map;
 @Controller
 public class GeminiController {
 
@@ -16,13 +20,20 @@ public class GeminiController {
 	
 	@Autowired
 	private GeminiMapper geminiMapper;
-
+	
+	@Autowired
+	private LogService logService;
     @GetMapping("/") //index page
     public String index(Model model) throws Exception {
         //저장된 제미나이 문구를 가져오기
     	String menuDB=geminiMapper.getMenu();
       
     	model.addAttribute("gemini",menuDB);
+    	
+    	
+    	List<Map<String,Object>> ar = logService.logRanking();
+    	System.out.println("결과 리스트 크기: " + (ar != null ? ar.size() : "null"));
+    	model.addAttribute("ranking",ar);
         return "index"; 
     }
   

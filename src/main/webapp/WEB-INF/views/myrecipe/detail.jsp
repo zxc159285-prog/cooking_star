@@ -33,7 +33,7 @@
 					<td>${dto.recipeTitle}</td>
 					<td>${dto.recipeContents}</td>
 					<td><a href="/member/user?username=${dto.username}">${dto.username}</a></td>
-					<td>${dto.recipeGood}</td>
+					<td>${dto.recipeGoodCount}</td>
 					<td>${dto.recipeHit}</td>
 					<td>${dto.recipeDate}</td>
 				</tr>

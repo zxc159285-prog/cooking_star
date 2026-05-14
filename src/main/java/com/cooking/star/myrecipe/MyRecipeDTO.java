@@ -16,7 +16,7 @@ public class MyRecipeDTO {
 	private String username;
 	private String recipeTitle;
 	private String recipeContents;
-	private Long recipeGood;
+	private Long recipeGoodCount;
 	private Long recipeHit;
 	private LocalDate recipeDate;
 	private RecipeFileDTO recipeFileDTO;
