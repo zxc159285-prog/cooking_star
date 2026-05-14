@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@taglib prefix="c" uri="jakarta.tags.core" %>
     <%@ taglib prefix="sec"  uri="http://www.springframework.org/security/tags"%>
+    <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -145,28 +147,49 @@
                         </div>
                         
                     </div>
+                    
+                    
                     <div class="col-md-12 col-lg-5">
-                        <div id="carouselId" class="carousel slide position-relative" data-bs-ride="carousel">
-                            <div class="carousel-inner" role="listbox">
-                                <div class="carousel-item active rounded">
-                                    <img src="img/hero-img-1.png" class="img-fluid w-100 h-100 bg-secondary rounded" alt="First slide">
-                                    <a href="#" class="btn px-4 py-2 text-white rounded">Fruites</a>
+    <div class="card border-secondary shadow-sm rounded">
+        <div class="card-header bg-primary text-white py-3">
+            <h5 class="mb-0 text-center"><i class="fas fa-fire me-2"></i>실시간 인기 레시피</h5>
+        </div>
+        <div class="card-body p-0">
+            <ul class="list-group list-group-flush">
+                <c:choose>
+                    <c:when test="${not empty ranking}">
+                        <c:forEach items="${ranking}" var="rank" varStatus="vs">
+                            <li class="list-group-item d-flex justify-content-between align-items-center py-3">
+                                <div>
+                                    <span class="badge bg-secondary me-3" style="width: 30px;">${vs.count}</span>
+                                    <strong class="text-dark">${rank.keyword}</strong>
                                 </div>
-                                <div class="carousel-item rounded">
-                                    <img src="img/hero-img-2.jpg" class="img-fluid w-100 h-100 rounded" alt="Second slide">
-                                    <a href="#" class="btn px-4 py-2 text-white rounded">Vesitables</a>
-                                </div>
-                            </div>
-                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselId" data-bs-slide="prev">
-                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Previous</span>
-                            </button>
-                            <button class="carousel-control-next" type="button" data-bs-target="#carouselId" data-bs-slide="next">
-                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Next</span>
-                            </button>
-                        </div>
-                    </div>
+                                <span class="badge bg-light text-primary border border-primary rounded-pill">
+                                    ${rank.count}회 검색
+                                </span>
+                            </li>
+                        </c:forEach>
+                    </c:when>
+                    <c:otherwise>
+                        <li class="list-group-item text-center py-5 text-muted">
+                            아직 검색 기록이 없습니다.
+                        </li>
+                    </c:otherwise>
+                </c:choose>
+            </ul>
+        </div>
+        <div class="card-footer bg-white text-center py-2">
+            <jsp:useBean id="now" class="java.util.Date" />
+
+<small class="text-muted">
+    <fmt:formatDate value="${now}" pattern="yyyy년 MM월 dd일" /> 집계된 데이터입니다.
+</small>
+        </div>
+    </div>
+</div>
+
+
+
                 </div>
             </div>
         </div>

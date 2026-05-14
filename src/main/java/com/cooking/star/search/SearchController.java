@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.cooking.star.log.LogDTO;
+import com.cooking.star.log.LogService;
+
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
@@ -28,8 +31,25 @@ public class SearchController {
 	@Autowired
 	private SearchService searchService;
 	
+	@Autowired
+	private LogService logService;
+	
 	@GetMapping("result")
-	public String resultPage(@RequestParam(name="query") String query, Model model) {
+	public String resultPage(@RequestParam(name="query") String query,Principal principal,Model model) throws Exception{
+		
+		//log db에 관련된 코드
+		//검색어 저장
+		LogDTO logDTO= new LogDTO();
+		logDTO.setLogTitle(query);
+		
+		//로그인 유무 확인해서 유저네임저장
+		if(principal != null) {
+			logDTO.setUsername(principal.getName());
+		}
+		
+		logService.insertLog(logDTO);
+		
+		
 		
 		model.addAttribute("searchQuery", query);
 		
