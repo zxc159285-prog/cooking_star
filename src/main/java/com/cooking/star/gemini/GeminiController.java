@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cooking.star.gemini.GeminiService; // GeminiService 경로
 import com.cooking.star.log.LogService;
+import com.cooking.star.mycooking.MyCookingDTO;
+import com.cooking.star.mycooking.MyCookingService;
 
 import java.time.LocalTime;
 import java.util.List;
@@ -22,6 +24,10 @@ public class GeminiController {
 	private GeminiMapper geminiMapper;
 	
 	@Autowired
+	private MyCookingService myCookingService;
+	
+	
+	@Autowired
 	private LogService logService;
     @GetMapping("/") //index page
     public String index(Model model) throws Exception {
@@ -34,6 +40,13 @@ public class GeminiController {
     	List<Map<String,Object>> ar = logService.logRanking();
     	System.out.println("결과 리스트 크기: " + (ar != null ? ar.size() : "null"));
     	model.addAttribute("ranking",ar);
+    	
+    	List<MyCookingDTO> list=myCookingService.list();
+		
+		model.addAttribute("myCookingList", list);
+    	
+    	
+    	
         return "index"; 
     }
   

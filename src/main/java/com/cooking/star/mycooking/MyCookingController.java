@@ -32,14 +32,14 @@ public class MyCookingController {
 		myCookingService.create(myCookingDTO,attach);
 		
 	}
-	@GetMapping("list")
-	public void list (Model model)throws Exception{
-		
-		List<MyCookingDTO> ar=myCookingService.list();
-		
-		model.addAttribute("list", ar);
-	}
-	
+//	@GetMapping("list")
+//	public void list (Model model)throws Exception{
+//		
+//		List<MyCookingDTO> ar=myCookingService.list();
+//		
+//		model.addAttribute("list", ar);
+//	}
+//	
 	
 	
 }

@@ -33,6 +33,7 @@
 			</div>
 			
 			<div class="form-group" id="fileform" data-file-size="0">
+			<span>첫번째 사진이 홈페이지에서 출력됩니다</span>
 				<!-- <label for="file">음식 사진</label>
 				<input type="file" class="form-control-file" id="attach"name="attach"> -->
 			</div>

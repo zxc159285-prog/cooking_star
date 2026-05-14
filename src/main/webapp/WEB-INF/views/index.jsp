@@ -208,9 +208,9 @@
                         <div class="mb-4">
                             <a href="${pageContext.request.contextPath}/mycooking/detail?cookingNum=${dto.cookingNum}">
                                 <c:choose>
-                                    <c:when test="${not empty dto.fileName}">
+                                    <c:when test="${not empty dto.list[0].fileName}">
                                         <img 
-                                            src="${pageContext.request.contextPath}/upload/mycooking/${dto.fileName}"
+                                            src="${pageContext.request.contextPath}/files/mycooking/${dto.list[0].fileName}"
                                             alt="${dto.cookingTitle}"
                                             class="img-fluid rounded"
                                             style="width: 100%; height: 180px; object-fit: cover;">
