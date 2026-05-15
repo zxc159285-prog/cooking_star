@@ -29,5 +29,9 @@
     WHERE "CART_NUM" = #{cartNum}
 </update>
 
+<delete id="buyDelete" parameterType="CartDTO">
+    DELETE FROM "CART"
+    WHERE "USERNAME" = #{username}
+</delete>
 
   </mapper>

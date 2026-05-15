@@ -98,9 +98,9 @@ $(document).ready(function() {
 	
 	
 	//결제하기 >>토스연동
+	//결제하기 >>토스연동
 	$("#payment-btn").on("click", function() {
-	    // .text()를 하면 "15,000원"이라는 글자가 통째로 옵니다.
-	    // replace(/[^0-9]/g, '')는 숫자(0-9)가 아닌 모든 것(쉼표, '원')을 빈칸으로 바꿔버립니다.
+	    // 1. 금액 가져오기 (콤마와 '원'을 제거하고 숫자로 변환)
 	    const totalAmountText = $("#final-price-display").text();
 	    const totalAmount = parseInt(totalAmountText.replace(/[^0-9]/g, '')) || 0;
 
@@ -111,12 +111,24 @@ $(document).ready(function() {
 	        return;
 	    }
 
-	    // 토스 결제창 호출 로직 실행...
+	    // 2. 토스 결제창 호출
 	    tossPayments.requestPayment('카드', {
-	        amount: totalAmount,
-	        orderId: 'ORDER_' + new Date().getTime(),
+	        amount: totalAmount, // 위에서 구한 실제 합계 금액
+	        orderId: 'ORDER_' + new Date().getTime(), // 매번 겹치지 않게 타임스탬프 활용
 	        orderName: '장바구니 상품 결제',
-	        // ... 나머지 정보들
+	        
+	        // ⭐️ 이 부분이 핵심! 성공 시 우리가 만든 컨트롤러로 리다이렉트 시킵니다.
+	        successUrl: window.location.origin + '/buylist/order/complete', 
+	        failUrl: window.location.origin + '/buylist/order/fail',
+	    })
+	    .catch(function (error) {
+	        if (error.code === 'USER_CANCEL') {
+	            // 결제창을 닫았을 때
+	            console.log('사용자가 결제를 취소하였습니다.');
+	        } else {
+	            // 기타 에러
+	            console.error(error.message);
+	        }
 	    });
 	});
 });
