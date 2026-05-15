@@ -28,7 +28,7 @@
             <c:if test="${empty list}">
                 <div class="card p-5 text-center">
                     <p class="text-muted">장바구니가 비어 있습니다.</p>
-                    <a href="/product/list" class="btn btn-outline-primary m-auto" style="width: 200px;">상품 보러 가기</a>
+                    <a href="/cart/search" class="btn btn-outline-primary m-auto" style="width: 200px;">상품 보러 가기</a>
                 </div>
             </c:if>
 

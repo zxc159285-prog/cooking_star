@@ -15,6 +15,8 @@ public interface CartMapper {
 	
 	public int updateEa(CartDTO cartDTO) throws Exception;
 	
+	public int buyDelete(CartDTO cartDTO) throws Exception;
+	
 
 }
 

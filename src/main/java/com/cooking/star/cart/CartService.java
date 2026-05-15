@@ -26,4 +26,9 @@ public class CartService {
 	public int delete(CartDTO cartDTO) throws Exception {
 	    return cartMapper.delete(cartDTO);
 	}
+	
+	public int buyDelete(CartDTO cartDTO) throws Exception {
+	    return cartMapper.delete(cartDTO);
+	}
+	
 }

@@ -100,7 +100,7 @@ public class MyRecipeController {
 		MyRecipeDTO checkDTO= myRecipeService.detail(myRecipeDTO);
 		
 		if(!checkDTO.getUsername().equals(memberDTO.getUsername())) {
-	        // 다르면 리스트로 쫓아내거나 에러 메시지 처리
+	        // 다르면 리스트로 쫓아내기
 	        return "redirect:/myrecipe/allList"; 
 	    }
 		
