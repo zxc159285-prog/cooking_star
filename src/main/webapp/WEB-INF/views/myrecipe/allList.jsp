@@ -1,76 +1,95 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="jakarta.tags.core"%>
-<!DOCTYPE html>
-<html>
-<head>
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-	<h1>list Page</h1>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 
-	<div>
-		<form action="./allList" method="get">
-			<div class="input-group mb-3">
-				<div>
-					<select name="kind" class="custom-select">
-						<option ${pager.kind eq 'v1'?'selected':''} value="v1"
-							class="dropdown-item">Title</option>
-						<option ${pager.kind eq 'v2'?'selected':''} value="v2"
-							class="dropdown-item">Writer</option>
-					</select> <input type="text" value="${pager.search}" name="search">
-					<button type="submit" id="">검색</button>
-				</div>
-				<table class="table">
-					<thead class="thead-dark">
-						<!-- 제목은 힌번 나오면 됨 -->
-						<tr>
-							<th>글번호</th>
-							<th>제목</th>
-							<th>작성자</th>
-							<th>좋아요</th>
-							<th>조회수</th>
-							<th>작성일</th>
-						</tr>
-					</thead>
+<jsp:include page="../common/header.jsp" />
+<jsp:include page="../common/navbar.jsp" />
 
-					<tbody>
-						<c:forEach items="${dto}" var="d">
-							<!-- 포이치 반복문 돌리는것 리스트에서꺼낸걸 d라는변수에 담자-->
+<!-- Single Page Header start -->
+<div class="container-fluid page-header py-5">
+    <h1 class="text-center text-white display-6">레시피 모음</h1>
+    <ol class="breadcrumb justify-content-center mb-0">
+        <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/">Home</a></li>
+        <li class="breadcrumb-item active text-white">Recipes</li>
+    </ol>
+</div>
+<!-- Single Page Header End -->
 
-							<tr>
-								<td>${d.recipeNum}</td>
-								<td><a href="/myrecipe/detail?recipeNum=${d.recipeNum}">${d.recipeTitle}</a></td>
-								<td>${d.username}</td>
-								<td>${d.recipeGoodCount}</td>
-								<td>${d.recipeHit}</td>
-								<td>${d.recipeDate}</td>
-								</tr>
+<!-- Fruits Shop Start-->
+<div class="container-fluid fruite py-5">
+    <div class="container py-5">
+        <div class="row g-4">
+            <div class="col-lg-12">
+                <div class="row g-4">
+                    <div class="col-xl-3">
+                        <form action="./allList" method="get" id="searchForm">
+                            <div class="input-group w-100 mx-auto d-flex">
+                                <select name="kind" class="form-select border-0 bg-light py-3">
+                                    <option ${pager.kind eq 'v1'?'selected':''} value="v1">Title</option>
+                                    <option ${pager.kind eq 'v2'?'selected':''} value="v2">Writer</option>
+                                </select>
+                                <input type="text" name="search" value="${pager.search}" class="form-control p-3" placeholder="keywords" aria-describedby="search-icon-1">
+                                <button type="submit" id="search-icon-1" class="input-group-text p-3"><i class="fa fa-search"></i></button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-6"></div>
+                    <div class="col-xl-3 text-end">
+                        <a href="${pageContext.request.contextPath}/myrecipe/create" class="btn border-secondary py-3 px-4 rounded-pill text-primary bg-white">
+                            <i class="fas fa-edit me-2"></i>레시피 작성
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="row g-4 mt-2">
+                    <div class="col-lg-12">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">글번호</th>
+                                        <th scope="col">제목</th>
+                                        <th scope="col">작성자</th>
+                                        <th scope="col">좋아요</th>
+                                        <th scope="col">조회수</th>
+                                        <th scope="col">작성일</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <c:forEach items="${dto}" var="d">
+                                        <tr>
+                                            <td><p class="mb-0 mt-4">${d.recipeNum}</p></td>
+                                            <td><p class="mb-0 mt-4"><a href="/myrecipe/detail?recipeNum=${d.recipeNum}">${d.recipeTitle}</a></p></td>
+                                            <td><p class="mb-0 mt-4">${d.username}</p></td>
+                                            <td><p class="mb-0 mt-4">${d.recipeGoodCount}</p></td>
+                                            <td><p class="mb-0 mt-4">${d.recipeHit}</p></td>
+                                            <td><p class="mb-0 mt-4">${d.recipeDate}</p></td>
+                                        </tr>
+                                    </c:forEach>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <div class="col-12">
+                        <div class="pagination d-flex justify-content-center mt-5">
+                            <a href="./allList?page=${pager.pre?pager.start-1:pager.start}&search=${pager.search}&kind=${pager.kind}" 
+                               class="rounded ${pager.pre ? '' : 'disabled'}">&laquo;</a>
+                            
+                            <c:forEach begin="${pager.start}" end="${pager.end}" var="i">
+                                <a href="./allList?page=${i}&search=${pager.search}&kind=${pager.kind}" 
+                                   class="rounded">${i}</a>
+                            </c:forEach>
+                            
+                            <a href="./allList?page=${pager.next?pager.end+1:pager.end}&kind=${pager.kind}&search=${pager.search}" 
+                               class="rounded ${pager.next ? '' : 'disabled'}">&raquo;</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Fruits Shop End-->
 
-						</c:forEach>
-
-					</tbody>
-				</table>
-				<a href="/myrecipe/create">
-				<button type="button">레시피 작성</button>
-				</a>
-
-				<ul class="pagination">
-					<li class="page-item ${pager.pre?'':'disabled'}"><a
-						class="page-link"
-						href="./allList?page=${pager.pre?pager.start-1:pager.start}&search=${pager.search}&kind=${pager.kind}"
-						aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
-					</a></li>
-					<c:forEach begin="${pager.start}" end="${pager.end}" var="i">
-						<li class="page-item"><a class="page-link"
-							href="./allList?page=${i}&search=${pager.search}&kind=${pager.kind}">${i}</a></li>
-					</c:forEach>
-					<li class="page-item  ${pager.next?'':'disabled'}"><a
-						class="page-link"
-						href="./allList?page=${pager.next?pager.end+1:pager.end}&kind=${pager.kind}&search=${pager.search}"
-						aria-label="Next"> <span aria-hidden="true">&raquo;</span>
-					</a></li>
-				</ul></body>
-</html>
+<jsp:include page="../common/footer.jsp" />
+<jsp:include page="../common/scripts.jsp" />
