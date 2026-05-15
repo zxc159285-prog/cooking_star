@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.cooking.star.file.FileManager;
+import com.cooking.star.mycooking.MyCookingDTO;
 import com.cooking.star.pager.Pager;
 
 import lombok.extern.slf4j.Slf4j;
@@ -26,6 +27,11 @@ public class MyRecipeService {
 	@Autowired
 	private FileManager fileManager;
 
+	
+
+	
+	
+	
 	public int create(MyRecipeDTO myRecipeDTO, MultipartFile attach) throws Exception {
 
 		int result = myRecipeMapper.create(myRecipeDTO);

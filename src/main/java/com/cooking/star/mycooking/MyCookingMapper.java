@@ -3,6 +3,8 @@ package com.cooking.star.mycooking;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+import org.springframework.security.access.method.P;
 
 import com.cooking.star.pager.Pager;
 
@@ -20,6 +22,20 @@ public interface MyCookingMapper {
 	
 	public int addFile(MyCookingFIleDTO myCookingFIleDTO) throws Exception;
 	
+	public MyCookingDTO detail(MyCookingDTO myCookingDTO)throws Exception;
 	
+	 public MyCookingFIleDTO fileDetail(Long fileNum) throws Exception;
+
+	   public int deleteFile(@Param("fileNum") Long fileNum) throws Exception;
+	
+	   public int fileCount(@Param("cookingNum")Long cookingNum)throws Exception;
+	   
+	   List<MyCookingFIleDTO> fileList(Long cookingNum) throws Exception;
+
+	    int deleteFileAll(Long cookingNum) throws Exception;
+
+	
+	   
+	   
 	
 }

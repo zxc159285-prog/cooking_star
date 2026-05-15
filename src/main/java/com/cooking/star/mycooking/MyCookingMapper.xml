@@ -54,4 +54,81 @@ LIMIT 4
 </resultMap>
 
 
+<select id="detail" parameterType="MyCookingDTO" resultMap="cookingResult">
+
+SELECT * FROM "MY_COOKING" m
+LEFT JOIN "COOKING_FILE" f
+USING ("COOKING_NUM")
+WHERE "COOKING_NUM"=#{cookingNum}
+
+
+
+</select>
+
+<update id="update" parameterType="MyCookingDTO">
+    UPDATE "MY_COOKING"
+    <set>
+        <if test="cookingTitle != null and cookingTitle != ''">
+            "COOKING_TITLE" = #{cookingTitle},
+        </if>
+
+        <if test="cookingContents != null and cookingContents != ''">
+            "COOKING_CONTENTS" = #{cookingContents},
+        </if>
+
+        <if test="cookingRecipe != null">
+            "COOKING_RECIPE" = #{cookingRecipe},
+        </if>
+    </set>
+    WHERE "COOKING_NUM" = #{cookingNum}
+    AND "USERNAME" = #{username}
+</update>
+<select id="fileDetail" parameterType="long" resultType="MyCookingFileDTO">
+    SELECT
+        *
+    FROM "COOKING_FILE"
+    WHERE "FILE_NUM" = #{fileNum}
+</select>
+<delete id="deleteFile" parameterType="long">
+    DELETE FROM "COOKING_FILE"
+    WHERE "FILE_NUM" = #{fileNum}
+</delete>
+
+<select id="fileCount" resultType="int">
+    SELECT COUNT(*)
+    FROM "COOKING_FILE"
+    WHERE "COOKING_NUM" = #{cookingNum}
+</select>
+
+<delete id="delete" parameterType="MyCookingDTO">
+DELETE FROM "MY_COOKING"
+WHERE "COOKING_NUM"=#{cookingNum}
+AND "USERNAME"=#{username}
+</delete>
+
+<select id="fileList" parameterType="long" resultType="MyCookingFileDTO">
+    SELECT
+        *
+    FROM "COOKING_FILE"
+    WHERE "COOKING_NUM" = #{cookingNum}
+</select>
+
+<delete id="deleteFileAll" parameterType="long">
+    DELETE FROM "COOKING_FILE"
+    WHERE "COOKING_NUM" = #{cookingNum}
+    
+</delete>
+
+
+
+
+
+
+
+
+
+
+
+
+
 </mapper>

@@ -75,7 +75,7 @@
                                 <div class="dropdown-menu m-0 bg-secondary rounded-0">
                                     <a href="/cart" class="dropdown-item">Cart</a>
                                     <a href="/chackout" class="dropdown-item">Chackout</a>
-                                    <a href="/testimonial" class="dropdown-item">Testimonial</a>
+                                    <a href="/mycooking/create" class="dropdown-item">요리 왕 게시판</a>
                                     <a href="/search/list" class="dropdown-item">링크 리스트</a>
                             <a href="/myrecipe/allList" class="dropdown-item">레시피 모음</a>
                                 </div>

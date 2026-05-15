@@ -3,21 +3,36 @@ package com.cooking.star.mycooking;
 import java.security.Principal;
 import java.util.List;
 
+import com.cooking.star.security.AddLogout;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/mycooking/*")
 public class MyCookingController {
 
+    
+
 	@Autowired
 	private MyCookingService myCookingService;
+
+	@Value("${app.mycooking}")
+	private String name;
+	@ModelAttribute("name")
+	public String getName() {
+		
+		return this.name;
+	}
+	
 	
 	@GetMapping("create")
 	public void create()throws Exception {
@@ -25,13 +40,16 @@ public class MyCookingController {
 		
 	}
 	@PostMapping("create")
-	public void create(MyCookingDTO myCookingDTO,Principal principal,@RequestParam(name="attach",required = false) MultipartFile[] attach)throws Exception{
+	public String create(MyCookingDTO myCookingDTO,Principal principal,@RequestParam(name="attach",required = false) MultipartFile[] attach)throws Exception{
 		String username=principal.getName();
 		myCookingDTO.setUsername(username);
 		
 		myCookingService.create(myCookingDTO,attach);
 		
+		return "redirect:/";
+		
 	}
+	//인덱스에 뿌려 주기 때문에 다른 곳에서 요청을 처리함
 //	@GetMapping("list")
 //	public void list (Model model)throws Exception{
 //		
@@ -40,6 +58,74 @@ public class MyCookingController {
 //		model.addAttribute("list", ar);
 //	}
 //	
+	@GetMapping("detail")
+	public void detail (MyCookingDTO myCookingDTO,Model model)throws Exception{
+		
+		myCookingDTO=myCookingService.detail(myCookingDTO);
+		model.addAttribute("dto", myCookingDTO);
 	
+	}
+	 @GetMapping("update")
+	    public String update(
+	            MyCookingDTO myCookingDTO,
+	            Model model,
+	            Principal principal
+	    ) throws Exception {
+
+	        // 로그인한 사용자 정보 세팅
+	        myCookingDTO.setUsername(principal.getName());
+
+	        // 기존 글 정보 조회
+	        MyCookingDTO dto = myCookingService.detail(myCookingDTO);
+
+	        model.addAttribute("dto", dto);
+	        model.addAttribute("name", "mycooking");
+
+	        return "mycooking/update";
+	    }
+	 	@PostMapping("update")
+	    public String update(MyCookingDTO myCookingDTO,   @RequestParam(name = "attach", required = false) MultipartFile[] attach,  @RequestParam(name = "deleteFileNums", required = false) List<Long> deleteFileNums,
+	            Principal principal,RedirectAttributes redirectAttributes) throws Exception {
+
+	        // 수정 권한 확인용 username 세팅
+	        myCookingDTO.setUsername(principal.getName());
+
+	        try {
+	            myCookingService.update(myCookingDTO, attach, deleteFileNums);
+	        } catch (IllegalArgumentException e) {
+
+	            redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
+
+	            return "redirect:./update?cookingNum=" + myCookingDTO.getCookingNum();
+	        }
+	        return "redirect:./detail?cookingNum=" + myCookingDTO.getCookingNum();
+	    }
+	
+@GetMapping("delete")
+public String delete(MyCookingDTO myCookingDTO,Principal principal)throws Exception{
+	
+	myCookingDTO.setUsername(principal.getName());
+	
+	myCookingService.delete(myCookingDTO);
+	
+	return "redirect:/";
 	
 }
+	 	
+	 	
+	 	
+	 	
+	 	
+	 	
+	 	
+	 	
+	 	
+	 	
+	 	
+	 	
+}
+	
+	
+	
+	
+
