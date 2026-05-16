@@ -1,32 +1,37 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>레시피 검색 결과</title>
-    <!-- 부트스트랩을 연결해줘야 카드가 예쁘게 나옵니다 -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body>
 
-    <div class="container mt-5">
-        <h2 class="mb-4">
-            <span class="text-primary">'${searchQuery}'</span> 레시피 검색 결과
-        </h2>
-        <hr>
+<jsp:include page="../common/header.jsp" />
+<jsp:include page="../common/navbar.jsp" />
 
-        <!-- [중요] JS가 데이터를 뿌려줄 장소입니다. -->
-        <!-- 컨트롤러에서 보낸 searchQuery를 data-query 속성에 저장합니다. -->
+<!-- Single Page Header start -->
+<div class="container-fluid page-header py-5">
+    <h1 class="text-center text-white display-6">레시피 검색 결과</h1>
+    <ol class="breadcrumb justify-content-center mb-0">
+        <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/">Home</a></li>
+        <li class="breadcrumb-item active text-white">Recipe Search</li>
+    </ol>
+</div>
+<!-- Single Page Header End -->
+
+<!-- Blog Search Result Start -->
+<div class="container-fluid fruite py-5">
+    <div class="container py-5">
+        <div class="text-center mx-auto mb-5" style="max-width: 700px;">
+            <h2 class="text-primary mb-3">
+                <span>'${searchQuery}'</span> 레시피 검색 결과
+            </h2>
+        </div>
+
         <div id="recipeResult" class="row g-4" data-query="${searchQuery}">
-            <div class="text-center py-5">
-                <div class="spinner-border text-primary" role="status"> </div>
-                
+            <div class="col-12 text-center py-5">
+                <div class="spinner-border text-primary" role="status"></div>
             </div>
         </div>
     </div>
+</div>
+<!-- Blog Search Result End -->
 
-    <!-- 우리가 만든 JS 파일 연결 (경로 확인 필수!) -->
-    <script src="/js/result.js"></script>
-</body>
-</html>
+<jsp:include page="../common/footer.jsp" />
+<script src="${pageContext.request.contextPath}/js/result.js"></script>
+<jsp:include page="../common/scripts.jsp" />
