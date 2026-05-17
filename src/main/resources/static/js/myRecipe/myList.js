@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", function() {
                         alert("삭제되었습니다.");
                         location.href = "./myList"; 
                     } else if (result === -1) {
-                        alert("로그인이 만료되었거나 필요합니다.");
+                        alert("로그인이 필요합니다.");
                         location.href = "/member/login"; 
                     } else {
                         alert("삭제 실패했습니다. (본인 글이 아니거나 존재하지 않는 글입니다.)");

@@ -16,8 +16,13 @@ public interface MyRecipeMapper {
 	public int create(MyRecipeDTO myRecipeDTO)throws Exception;
 	public List<MyRecipeDTO> allList(@Param("pager")Pager pager)throws Exception;
 	public MyRecipeDTO detail(MyRecipeDTO myRecipeDTO)throws Exception;
+	//마이레시피 작성 or 수정시 이미지추가 메서드
 	public int addRecipeimg(RecipeFileDTO recipeFileDTO)throws Exception;
-	public int update(@Param("dto") MyRecipeDTO myRecipeDTO,MultipartFile attaah )throws Exception;
+	public int update(@Param("dto") MyRecipeDTO myRecipeDTO )throws Exception;
+	//마이레시피 수정시 기존이미지 삭제 메서드
+	int deleteFiles(@Param("deleteFiles") List<Long> deleteFiles) throws Exception;
+	
+	
 	public List<MyRecipeDTO> myList(@Param("pager") Pager pager,@Param("dto") MyRecipeDTO myRecipeDTO)throws Exception;
 	public int delete(MyRecipeDTO myRecipeDTO)throws Exception;
 	

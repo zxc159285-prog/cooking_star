@@ -15,7 +15,8 @@
 
 	<select id="getMyCount" resultType="Long">
 		SELECT COUNT("RECIPE_NUM") FROM "COOK_MYRECIPE"
-		WHERE "USERNAME" = #{dto.username}
+		WHERE "USERNAME" =
+		#{dto.username}
 		<include refid="search_sql"></include>
 
 	</select>
@@ -35,7 +36,8 @@
 	</insert>
 
 	<insert id="addRecipeimg" parameterType="RecipeFileDTO">
-		INSERT INTO "RECIPE_FILE"
+		INSERT INTO
+		"RECIPE_FILE"
 		VALUES (DEFAULT,#{recipeNum},#{fileName},#{oriName})
 	</insert>
 
@@ -59,14 +61,14 @@
 		<result column="RECIPE_HIT" property="recipeHit" />
 		<result column="RECIPE_DATE" property="recipeDate" />
 
-		<association property="recipeFileDTO"
-			javaType="RecipeFileDTO">
+		<collection property="recipeFileDTO"
+			javaType="java.util.List" ofType="RecipeFileDTO">
 			<id column="FILE_NUM" property="fileNum" />
 			<result column="RECIPE_NUM" property="recipeNum" />
 			<result column="FILE_NAME" property="fileName" />
 			<result column="ORI_NAME" property="oriName" />
 
-		</association>
+		</collection>
 	</resultMap>
 
 	<select id="myList" parameterType="MyRecipeDTO"
@@ -78,7 +80,8 @@
 		WHERE "USERNAME"=#{dto.username}
 		<include refid="search_sql"></include>
 		ORDER BY "RECIPE_NUM" DESC
-		LIMIT #{pager.perPage} OFFSET #{pager.startNum}
+		LIMIT #{pager.perPage} OFFSET
+		#{pager.startNum}
 	</select>
 	<select id="detail" parameterType="MyRecipeDTO"
 		resultMap="recipeResult">
@@ -87,31 +90,42 @@
 		"RECIPE_FILE"f
 		USING("RECIPE_NUM")
 		WHERE "RECIPE_NUM"=#{recipeNum}
-		ORDER BY "RECIPE_NUM" DESC
+		ORDER BY
+		"RECIPE_NUM" DESC
 	</select>
 
-	<update id="update" parameterType="MyRecipeDTO">
+	<update id="update">
 		UPDATE "COOK_MYRECIPE"
 		<set>
-			<if test="recipeTitle !=null">"RECIPE_TITLE" =#{recipeTitle},</if>
-			<if test="recipeContents !=null">"RECIPE_CONTENTS" =#{recipeContents}</if>
+			<if test="dto.recipeTitle !=null">"RECIPE_TITLE" =#{dto.recipeTitle},</if>
+			<if test="dto.recipeContents !=null">"RECIPE_CONTENTS" =#{dto.recipeContents}</if>
 		</set>
-		WHERE "RECIPE_NUM"=#{recipeNum}
+		WHERE "RECIPE_NUM"=#{dto.recipeNum}
 	</update>
 
+	<delete id="deleteFiles">
+		DELETE FROM "RECIPE_FILE"
+		WHERE "FILE_NUM" IN
+		<foreach collection="deleteFiles" item="fileNum" open="("
+			separator="," close=")">
+			#{fileNum}
+		</foreach>
+	</delete>
 
 	<update id="updateHit">
 		UPDATE "COOK_MYRECIPE"
-		SET "RECIPE_HIT" = "RECIPE_HIT" + 1
+		SET "RECIPE_HIT" = "RECIPE_HIT"
+		+ 1
 		WHERE "RECIPE_NUM" = #{recipeNum}
 	</update>
 
 
 	<delete id="delete">
 		DELETE FROM "COOK_MYRECIPE"
-		WHERE "USERNAME"=#{username} AND "RECIPE_NUM"=#{recipeNum}
+		WHERE
+		"USERNAME"=#{username} AND "RECIPE_NUM"=#{recipeNum}
 	</delete>
-	
+
 
 
 
