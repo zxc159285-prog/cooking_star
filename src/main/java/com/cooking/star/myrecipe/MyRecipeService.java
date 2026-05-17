@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.cooking.star.file.FileManager;
@@ -79,6 +79,31 @@ public class MyRecipeService {
 	public int updateHit(MyRecipeDTO myRecipeDTO)throws Exception{
 		
 		return myRecipeMapper.updateHit(myRecipeDTO);
+	}
+	
+	@Transactional
+	public int delete(MyRecipeDTO myRecipeDTO)throws Exception{
+		
+		//글정보와 파일정보 조회
+		MyRecipeDTO detail = myRecipeMapper.detail(myRecipeDTO);
+		
+		// 🌟 [핵심 안전장치]: DB가 CASCADE로 날아가기 전에 파일 DTO 객체를 자바 변수에 따로 안전하게 복사해둡니다.
+	    RecipeFileDTO targetFile = null;
+	    if (detail != null && detail.getRecipeFileDTO() != null) {
+	        targetFile = detail.getRecipeFileDTO();
+	    }
+	    
+		//db의 recipefile테이블에서 포링키 케스케이드설정하면 db에서 파일정보도 같이지워짐
+		int result=myRecipeMapper.delete(myRecipeDTO);
+		
+		 // 3. DB 삭제가 성공했고, 아까 따로 빼둔 파일 정보(targetFile)가 존재한다면 물리 파일 삭제!
+		if (result > 0 && targetFile != null && targetFile.getFileName() != null && !targetFile.getFileName().isEmpty()) {
+	        
+	        // 공용 파일매니저의 원래 규칙대로 안전하게 파일명을 던집니다.
+	        fileManager.fileDelete("myrecipe", targetFile);
+	     
+		}
+	    return result;
 	}
 	
 }

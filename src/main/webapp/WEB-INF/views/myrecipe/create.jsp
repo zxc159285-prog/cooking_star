@@ -37,18 +37,9 @@
                         </div>
                         <div class="mb-3">
                             <label class="form-label">내용</label>
-                            <input type="text" name="recipeContents" class="w-100 form-control border-0 py-3 mb-4">
+                            <textarea name="recipeContents" class="w-100 form-control border-0 py-3 mb-4" rows="10" style="resize: none;"></textarea>
                         </div>
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label">좋아요</label>
-                                <input type="text" name="recipeGoodCount" class="w-100 form-control border-0 py-3 mb-4">
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label">조회수</label>
-                                <input type="text" name="recipeHit" class="w-100 form-control border-0 py-3 mb-4">
-                            </div>
-                        </div>
+                       
                         <div class="mb-4">
                             <label class="form-label">요리 사진</label>
                             <input type="file" name="attach" class="form-control border-0 py-3" id="attach">

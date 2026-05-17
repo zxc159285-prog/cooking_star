@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.cooking.star.good.GoodDTO;
@@ -120,5 +121,19 @@ public class MyRecipeController {
 		int result=myRecipeService.update(myRecipeDTO,attach);
 		return "redirect:/myrecipe/detail?recipeNum="+myRecipeDTO.getRecipeNum();
 	}
+	
+	@PostMapping("delete")
+	@ResponseBody
+	public int delete(MyRecipeDTO myRecipeDTO,Principal principal) throws Exception{
+		if(principal == null) {
+			return -1;
+		}
+		myRecipeDTO.setUsername(principal.getName());
+		
+		int result= myRecipeService.delete(myRecipeDTO);
+		
+		return result;
+	}
+	
 	
 }
