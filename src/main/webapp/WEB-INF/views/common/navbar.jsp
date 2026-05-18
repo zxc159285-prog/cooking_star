@@ -45,8 +45,8 @@
 							<a href="#" class="nav-link dropdown-toggle"
 								data-bs-toggle="dropdown">My Menu</a>
 							<div class="dropdown-menu m-0 bg-secondary rounded-0">
-								<a href="${pageContext.request.contextPath}/cart"
-									class="dropdown-item">Cart</a> <a
+								<a href="${pageContext.request.contextPath}/myrecipe/myList"
+									class="dropdown-item">나의 레시피</a> <a
 									href="${pageContext.request.contextPath}/search/list"
 									class="dropdown-item">저장한 링크 리스트</a> <a
 									href="${pageContext.request.contextPath}/mycooking/create"

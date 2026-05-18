@@ -73,7 +73,9 @@
             <section class="mb-5">
                 <h2 class="h4 mb-3 text-dark">참고 레시피</h2>
                 <div class="bg-white rounded p-4" style="white-space: pre-line;">
+                     <a href="${dto.cookingRecipe}" target="_blank" rel="noopener noreferrer">
                     <c:out value="${dto.cookingRecipe}" />
+                    </a>
                 </div>
             </section>
 

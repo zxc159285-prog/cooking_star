@@ -19,6 +19,8 @@ public class MyCookingDTO {
 	private String cookingContents;
 	private LocalDate cookingDate;
 	private String fileName;
+	private Long cookingHit;
+	private Long cookingGood;
 	private List<MyCookingFIleDTO>list;
 	
 	
