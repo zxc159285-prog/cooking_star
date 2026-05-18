@@ -126,7 +126,14 @@
 		"USERNAME"=#{username} AND "RECIPE_NUM"=#{recipeNum}
 	</delete>
 
-
+	<select id="fileList" resultType="RecipeFileDTO">
+		SELECT * FROM "RECIPE_FILE"
+		WHERE "FILE_NUM" IN
+		<foreach collection="deleteFiles" item="fileNum" open="("
+			separator="," close=")">
+			#{fileNum}
+		</foreach>
+	</select>
 
 
 
