@@ -51,9 +51,11 @@ public class SecurityConfig {
 		security.cors(cros->{cros.disable();})
 		.csrf(csrf->{csrf.disable();})
 		.authorizeHttpRequests(auth->{
-			auth.requestMatchers("/notice/create","/notice/update","/notice/delete")
+			auth.requestMatchers("/admin/memberList")
 			.hasRole("ADMIN")
-			.requestMatchers("/qna/detail","/qna/create","/qna/update","/qna/delete").hasRole("MEMBER")
+			.requestMatchers("/admin/recipeList","/admin/dashboard").hasAnyRole("ADMIN","MANAGER")
+			.requestMatchers("/admin/**")
+			.hasRole("ADMIN")
 			.requestMatchers("/bank/create","/bank/update","/bank/delete").hasAnyRole("ADMIN","MANAGER","MEMBER")
 			.requestMatchers("/member/mypage","/member/logout","/member/update","myrecipe/update").authenticated()
 			.anyRequest().permitAll()
@@ -81,7 +83,7 @@ public class SecurityConfig {
 		.rememberMe(remember->{
 			remember.rememberMeParameter("rememberMe")
 			.key("rememberKey")
-			.tokenValiditySeconds(60*60*24)
+			.tokenValiditySeconds(60*60*24*7)
 			.userDetailsService(memberService)
 			.authenticationSuccessHandler(loginSuccessHandler)
 			.useSecureCookie(true);
