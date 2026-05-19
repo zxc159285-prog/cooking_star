@@ -43,14 +43,22 @@
 					<sec:authorize access="isAuthenticated()">
 						<div class="nav-item dropdown">
 							<a href="#" class="nav-link dropdown-toggle"
+								data-bs-toggle="dropdown">Create</a>
+							<div class="dropdown-menu m-0 bg-secondary rounded-0">
+								<a href="${pageContext.request.contextPath}/myrecipe/create"
+									class="dropdown-item">레시피 작성</a>
+								<a href="${pageContext.request.contextPath}/mycooking/create"
+									class="dropdown-item">요리자랑 작성</a>
+							</div>
+						</div>
+						<div class="nav-item dropdown">
+							<a href="#" class="nav-link dropdown-toggle"
 								data-bs-toggle="dropdown">My Menu</a>
 							<div class="dropdown-menu m-0 bg-secondary rounded-0">
 								<a href="${pageContext.request.contextPath}/myrecipe/myList"
 									class="dropdown-item">나의 레시피</a> <a
 									href="${pageContext.request.contextPath}/search/list"
 									class="dropdown-item">저장한 링크 리스트</a> <a
-									href="${pageContext.request.contextPath}/mycooking/create"
-									class="dropdown-item">요리 왕 글 작성</a> <a
 									href="${pageContext.request.contextPath}/mycooking/myList"
 									class="dropdown-item">나의 요리 왕 게시글 보기</a> <a
 									href="${pageContext.request.contextPath}/spot/myList"

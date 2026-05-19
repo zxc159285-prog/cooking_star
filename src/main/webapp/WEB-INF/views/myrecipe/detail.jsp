@@ -157,8 +157,9 @@
 
 									<input type="hidden" name="recipeNum" value="${dto.recipeNum}">
 
-									<button type="submit"
-										class="btn btn-outline-danger px-4 rounded-pill shadow-sm">
+									<button type="button"
+										class="btn btn-outline-danger px-4 rounded-pill shadow-sm btn-delete"
+										data-num="${dto.recipeNum}">
 										<i class="fas fa-trash-alt me-1"></i> 삭제
 									</button>
 
