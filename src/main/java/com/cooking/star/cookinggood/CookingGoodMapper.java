@@ -19,4 +19,6 @@ public interface CookingGoodMapper {
 	public int goodDown(CookingGoodDTO cookingGoodDTO)throws Exception;
 	
 	public int getGoodCount(CookingGoodDTO cookingGoodDTO) throws Exception;
+	
+
 }
